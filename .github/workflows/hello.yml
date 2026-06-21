@@ -10,7 +10,7 @@ on:
 # Jobs is an object so it needs indentation
 
 jobs:
- # 1st job [ Give Identation]
+ # 1st job [ Give indentation]
   say-hello:
  # Creates an ephemeral (that lasts only for short time) conatiner with ubuntu running  
     runs-on: ubuntu-latest

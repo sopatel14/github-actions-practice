@@ -17,6 +17,10 @@ jobs:
   # that ephermal container will have steps to execute, hence name those steps and use run: run has the command
 
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Say hello to everyone
         run: echo "Hello Dosto"
    

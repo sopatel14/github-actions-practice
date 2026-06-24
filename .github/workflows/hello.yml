@@ -27,7 +27,7 @@ jobs:
         run: echo running on branch ${GITHUB_REF##*/}
   
       - name: List files in the repository
-        run: ls ${{ github.workspace }}
+        run: ls -al
 
       - name: Print OS name 
         run: echo "$RUNNER_OS"

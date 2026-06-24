@@ -20,7 +20,7 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Say hello to everyone
         run: echo "Hello Dosto"
    
@@ -35,3 +35,6 @@ jobs:
 
       - name: Print OS name 
         run: echo "$RUNNER_OS"
+
+        - name: Intentional Failure Step
+         run: exit 1

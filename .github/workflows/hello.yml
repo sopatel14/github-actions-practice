@@ -19,16 +19,15 @@ jobs:
     steps:
       - name: Say hello to everyone
         run: echo "Hello Dosto"
-    steps:
+   
       - name: current date
         run: echo "Current date and time is $(date)"
-    steps:
+    
       - name: Print the current branch
         run: echo running on branch ${GITHUB_REF##*/}
-    steps:
+  
       - name: List files in the repository
         run: ls ${{ github.workspace }}
 
-    steps:
       - name: Print OS name 
         run: echo "$RUNNER_OS"

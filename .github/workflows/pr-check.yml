@@ -7,16 +7,16 @@ on:
     branches: 
       - main
 
-  jobs:
-    validate-pr:
-      runs-on: ubuntu-latest
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
 
 
-      steps:
-        - name: checkout repository
-          uses: actions/checkout@v4
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
           
-        - name: Print Branch name
-          run: echo "PR check running for branch: ${{ github.head_ref }}"
+      - name: Print the Branch name
+        run: echo "PR check running for branch: ${{ github.head_ref }}"
 
 

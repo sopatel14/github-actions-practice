@@ -1,0 +1,28 @@
+# # Goal : Create .github/workflows/manual.yml with a workflow_dispatch: trigger
+# Add an input that asks for an environment name (staging/production)
+# Print the input value in a step
+
+
+name: Trigger
+
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: true
+        description: Environment
+        options:
+          - ''
+          - development
+          - staging 
+          - production
+        default: development
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print selected environment
+        run: echo "Selected environment:${{ inputs.environment }}"

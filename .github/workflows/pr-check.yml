@@ -1,0 +1,22 @@
+# Goal Trigger it only when a pull request is opened or updated against main
+
+name: Trigger-Pull-request
+
+on:
+  pull_request: 
+    branches: 
+      - main
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+          
+      - name: Print the Branch name
+        run: echo "PR check running for branch:${{ github.head_ref }}"
+
+

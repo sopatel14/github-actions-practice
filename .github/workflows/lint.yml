@@ -8,13 +8,16 @@ on:
   push:
     paths: "*.py"
 
+# schedule:
+#     - cron: "0 0 * * *"  # every day at midnight UTC
+
 jobs:
   code-linter:
     runs-on: ubuntu-latest
     # this step will automatically clone the code of the current branch into the runner
     steps:
       - name: Checkout/Clone the code
-        uses: actions/checkout@v7
+        uses: actions/checkout@v
 
     # this step will install python
       - name: Setup python

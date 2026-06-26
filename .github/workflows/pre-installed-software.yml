@@ -17,14 +17,14 @@ jobs:
       - name: Check Docker version  
         run: docker --version
 
-    steps:
+  
       - name: Check Python version  
         run: python3 --version
       
-    steps:
+    
       - name: Check Node version  
         run: node -v
 
-    steps: 
+    
       - name: Check Git version  
         run: git --version

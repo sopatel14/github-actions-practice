@@ -1,0 +1,30 @@
+# # Goal On the ubuntu-latest runner, run a step that prints:
+# Docker version
+# Python version
+# Node version
+# Git version
+
+name: Pre-Installed Softwares
+
+on:
+  push:
+
+jobs:
+  softwares-on-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Docker version  
+        run: docker --version
+
+    steps:
+      - name: Check Python version  
+        run: python3 --version
+      
+    steps:
+      - name: Check Node version  
+        run: node -v
+
+    steps: 
+      - name: Check Git version  
+        run: git --version

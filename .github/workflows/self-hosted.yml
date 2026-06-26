@@ -1,0 +1,26 @@
+# # Goal : Set runs-on: self-hosted
+# Add steps that:
+# Print the hostname of the machine (it should be YOUR machine/VM)
+# Print the working directory
+# Create a file and verify it exists on your machine after the run
+# Trigger it and watch it run on your own hardware
+
+name: self-hosted runner
+
+on:
+  push:
+
+jobs:
+  self-hosted:
+    runs-on: self-hosted
+
+    steps:
+      - name: Print the hostname  
+        run: hostname
+
+      - name: Print the working directory
+        run: pwd
+
+      - name: Create a file
+        run: touch file-created.txt
+        

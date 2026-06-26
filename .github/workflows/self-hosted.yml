@@ -12,7 +12,7 @@ on:
 
 jobs:
   self-hosted:
-    runs-on: self-hosted
+    runs-on: [self-hosted, my-linux-runner]
 
     steps:
       - name: Print the hostname  
@@ -23,4 +23,3 @@ jobs:
 
       - name: Create a file
         run: touch file-created.txt
-        

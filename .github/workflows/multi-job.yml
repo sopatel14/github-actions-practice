@@ -1,0 +1,41 @@
+# # Goal To Create .github/workflows/multi-job.yml with 3 jobs:
+
+# build — prints "Building the app"
+# test — prints "Running tests"
+# deploy — prints "Deploying"
+# Make test run only after build succeeds. Make deploy run only after test succeeds.
+
+
+name: Multi Jobs 
+
+on: 
+  push:
+
+
+jobs:
+  code-checkout-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Code Building
+        run: echo "Building the app"
+
+  code-test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Code Testing
+        run: echo "Running tests"
+
+  code-deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Code Deploying
+        run: echo "Deploying"
+

@@ -30,6 +30,7 @@ jobs:
     steps:
 
       - name: Code Testing
+        needs: [code-checkout-build] 
         run: echo "Running tests"
 
   code-deploy:
@@ -37,5 +38,6 @@ jobs:
     steps:
 
       - name: Code Deploying
+        needs: [code-test] 
         run: echo "Deploying"
 

@@ -1,0 +1,34 @@
+# # Goal Triggers on push to any branch
+# Has a lint job and a test job running in parallel
+# Has a summary job that runs after both, prints whether it's a main branch push or a feature branch push, and prints the commit message
+
+
+name: Parallel and Summary Workflow
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Linting
+        run: echo "Running linter checks..."
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Testing
+        run: echo "Running suite of tests..."
+
+  summary:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - name: Print Run Details
+        run: |
+          echo "=== Branch Classification ==="
+          echo "${{ github.ref == 'refs/heads/main' && 'This is a main branch push!' || 'This is a feature branch push!' }}"
+          
+          echo "=== Commit Information ==="
+          echo "Commit Message: ${{ github.event.head_commit.message }}"

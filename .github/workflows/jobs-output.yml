@@ -1,0 +1,33 @@
+# # Goal: Create a job that sets an output — e.g., today's date as a string
+# Create a second job that reads that output and prints it
+# Pass the value using outputs: and needs.<job>.outputs.<name>
+
+
+name: Job Outputs
+
+on:
+  push:
+
+jobs:
+  build-date:
+    runs-on: ubuntu-latest
+    # 1. You must declare what outputs this job will expose to the outside world
+    outputs:
+      date_output: ${{ steps.date_step.outputs.computed_date }}
+
+    steps:
+      # 2. You must give your step an 'id' so the job block above can reference it
+      - name: Generate Today's Date
+        id: date_step
+        # This bash command generates a date string and appends it to the special GitHub Environment File
+        run: echo "computed_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+  print-date:
+    runs-on: ubuntu-latest
+    # 3. This job MUST wait for the producer to finish
+    needs: [build-date]
+    
+    steps:
+      - name: Print Received Date Output
+        # 4. Read the variable using the required dot notation chain
+        run: echo "The date passed from the previous job is ${{ needs.build-date.outputs.date_output }}"

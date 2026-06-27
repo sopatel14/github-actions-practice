@@ -27,17 +27,17 @@ jobs:
 
   code-test:
     runs-on: ubuntu-latest
+    needs: [code-checkout-build]
     steps:
 
-      - name: Code Testing
-        needs: [code-checkout-build] 
+      - name: Code Testing 
         run: echo "Running tests"
 
   code-deploy:
     runs-on: ubuntu-latest
+    needs: [code-test] 
     steps:
 
       - name: Code Deploying
-        needs: [code-test] 
         run: echo "Deploying"
 

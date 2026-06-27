@@ -1,0 +1,42 @@
+# # Goal In a new workflow, use environment variables at 3 levels:
+
+# Workflow level — APP_NAME: myapp
+# Job level — ENVIRONMENT: staging
+# Step level — VERSION: 1.0.0
+# Print all three in a single step and verify each is accessible.
+
+# Then use a GitHub context variable — print the commit SHA and the actor (who triggered the run).
+
+
+name: priting env variables
+
+on: 
+  push:
+
+env:
+  APP_NAME: myapp
+
+jobs:
+  print-env-variables:
+    runs-on: ubuntu-latest
+
+
+    env:
+      ENVIRONMENT: staging
+
+    steps:
+      - name: Print everything
+
+        env:
+          VERSION: 1.0.0
+
+        run: |
+          echo "=== Environment Variables ==="
+          echo "App Name: $APP_NAME"
+          echo "Environment: $ENVIRONMENT"
+          echo "Version: $VERSION"
+          
+          echo "=== GitHub Context Variables ==="
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+

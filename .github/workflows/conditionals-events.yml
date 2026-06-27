@@ -24,9 +24,6 @@ jobs:
         if: failure()
         run: echo "Previous Job failed"
 
-      - name: Run only if on push event
-        push:
-
       - name: Continue running on errors 
         continue-on-error: true
         run: echo "Code deployed without exiting"

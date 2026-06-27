@@ -18,14 +18,14 @@ jobs:
         run: echo "Successfully running on main"
 
       - name: Force an intentional error
-        continue-on-error: true
         run: exit 1
 
-      # - name: Run only if previous step fails
-      #   if: failure()
-      #   run: echo "Previous Job failed"
+      - name: Run only if previous step fails
+        if: failure()
+        run: echo "Previous Job failed"
 
       - name: Continue running on errors 
+        continue-on-error: true
         run: echo "Code deployed without exiting"
 
 

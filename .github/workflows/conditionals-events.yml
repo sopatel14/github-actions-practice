@@ -1,0 +1,37 @@
+# # Goal : A step that only runs when the branch is main
+# A step that only runs when the previous step failed
+# A job that only runs on push events, not on pull requests
+# A step with continue-on-error: true — what does this do?
+
+name: Conditional events
+
+on: 
+  push:
+
+jobs:
+  conditional-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Only run If branch is main
+        if: github.ref == 'refs/heads/main'
+        run: echo "Successfully running on main"
+
+      - name: Force an intentional error
+        run: exit 1
+
+      - name: Run only if previous step fails
+        if: failure()
+        run: echo "Previous Job failed"
+
+      - name: Run only if on push event
+        push:
+
+      - name: Continue running on errors 
+        continue-on-error: true
+        run: echo "Code deployed without exiting"
+
+
+
+
+        

@@ -1,0 +1,30 @@
+# # # Goal Create a step that generates a file — e.g., a test report or a log file
+# # Use actions/upload-artifact to save it
+# # After the workflow runs, download the artifact from the Actions tab
+
+# Job 1: generate a file and upload it as an artifact
+# Job 2: download the artifact from Job 1 and use it (print its contents)
+
+
+name: Artifacts 
+
+on:
+  push:
+
+jobs:
+  artifact-upload:
+    runs-on: ubuntu-latest
+
+    step1:
+      - name: Generate a file
+        run: echo "Hello World, This is Test report" > test-report.txt
+
+      - name: Upload the file
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report-artifact
+          path: test-report.txt
+
+    
+      
+      

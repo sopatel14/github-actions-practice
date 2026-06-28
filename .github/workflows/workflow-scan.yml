@@ -15,7 +15,7 @@ jobs:
   scan-script:
     runs-on: ubuntu-latest
     steps:
-      - name: Code Checkout
+      - name: Code Clone/Checkout
         uses: actions/checkout@v7
 
       - name: Make the script files executable

@@ -15,7 +15,7 @@ jobs:
   artifact-upload:
     runs-on: ubuntu-latest
 
-    step1:
+    steps:
       - name: Generate a file
         run: echo "Hello World, This is Test report" > test-report.txt
 

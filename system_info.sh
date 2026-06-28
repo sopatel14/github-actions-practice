@@ -41,3 +41,15 @@ main() {
 }
 
 main
+
+
+# Check if the cache folder is empty
+if [ ! -d "my-cache-folder" ] || [ -z "$(ls -A my-cache-folder)" ]; then
+  echo "Cache Miss! Downloading files..."
+  mkdir -p my-cache-folder
+  
+  # This simulates a download by creating a fake 10MB file
+  dd if=/dev/urandom of=my-cache-folder/fake-deps.bin bs=1M count=10
+else
+  echo "Cache Hit! Skipping download."
+fi

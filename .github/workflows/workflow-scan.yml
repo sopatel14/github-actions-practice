@@ -18,6 +18,12 @@ jobs:
       - name: Code Clone/Checkout
         uses: actions/checkout@v7
 
+      - name: Caching step
+        uses: actions/cache@v4
+        with:
+          path: my-cache-folder
+          key: script-deps-v1
+
       - name: Make the script files executable
         run: chmod +x system_info.sh
 

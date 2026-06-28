@@ -9,7 +9,7 @@ name: Scan script
 
 on:
   push:
-      paths: "*.sh"
+      
 
 jobs:
   scan-script:

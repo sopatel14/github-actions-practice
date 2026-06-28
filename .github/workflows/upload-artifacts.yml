@@ -25,6 +25,18 @@ jobs:
           name: test-report-artifact
           path: test-report.txt
 
+  artifact-download:
+    runs-on: ubuntu-latest
+    needs: artifact-upload
+    steps:
+        - name: Download Artifacts
+          uses: actions/download-artifact@v4
+          with:
+            name: test-report-artifact
+
+        - name: View file contents
+          run: cat test-report.txt
+
     
       
       

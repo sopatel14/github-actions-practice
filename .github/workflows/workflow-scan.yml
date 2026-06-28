@@ -1,0 +1,25 @@
+# # Goal Add your script to the github-actions-practice repo
+# Write a workflow that:
+# Checks out the code
+# Installs any dependencies needed
+# Runs the script
+# Fails the pipeline if the script exits with a non-zero code
+
+name: Scan script
+
+on:
+  push:
+      paths: "*.sh"
+
+jobs:
+  scan-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v7
+
+      - name: Make the script files executable
+        run: chmod +x system_info.sh
+
+      - name: Run the script
+        run: ./system_info.sh

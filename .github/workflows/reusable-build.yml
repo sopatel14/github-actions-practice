@@ -27,6 +27,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    outputs:
+      build_version: ${{ steps.generate_tag.outputs.VERSION }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4

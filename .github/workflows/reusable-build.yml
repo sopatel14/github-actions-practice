@@ -18,6 +18,11 @@ on:
       docker_token:
         required: true
 
+    outputs:
+      build_version:
+        description: "Generated build version"
+        value: ${{ jobs.build.outputs.build_version }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,4 +42,13 @@ jobs:
           else
             echo "Docker token is set: false"
           fi
+      - name: Generate Short SHA and Version String
+        id: generate_tag
+        run: |
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          VERSION_STRING="v1.0-${SHORT_SHA}"
 
+          echo "Generated version: $VERSION_STRING"
+
+          echo "VERSION=$VERSION_STRING" >> "$GITHUB_OUTPUT"
+        

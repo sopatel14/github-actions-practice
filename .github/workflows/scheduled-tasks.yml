@@ -1,0 +1,36 @@
+name: Scheduled Tasks
+
+on:
+  schedule:
+    - cron: '30 2 * * 1'    # Every Monday at 2:30 AM UTC
+    - cron: '0 */6 * * *'   # Every 6 hours
+  workflow_dispatch:        # Manual trigger for testing
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Print schedule trigger
+        run: |
+          echo "Triggered by schedule: ${{ github.event.schedule }}"
+          if [ "${{ github.event.schedule }}" == "30 2 * * 1" ]; then
+            echo "This is the weekly Monday run"
+          elif [ "${{ github.event.schedule }}" == "0 */6 * * *" ]; then
+            echo "This is the 6-hourly run"
+          else
+            echo "This was triggered manually (workflow_dispatch)"
+          fi
+          
+      - name: Health check
+        run: |
+          echo "Performing health check..."
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://github.com)
+          echo "Response code: $RESPONSE"
+          
+          if [ $RESPONSE -eq 200 ]; then
+            echo "Health check passed"
+          else
+            echo "Health check failed with status: $RESPONSE"
+            exit 1
+          fi

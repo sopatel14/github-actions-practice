@@ -5,11 +5,7 @@ name: PR lifecycle
 
 on:
   pull_request:
-    types:
-      opened:
-      synchronize:
-      reopened: 
-      closed:
+    types: [opened, synchronize, reopened, closed]
 
 jobs:
   pr-info:
@@ -31,11 +27,11 @@ jobs:
           echo "Target Branch: ${{ github.base_ref }}"
 
       - name: Only Runs when PR is merged
-        if: github.event.pull_request.merged == true
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
           echo "The PR was successfully merged"
 
-      - name: Only Runs when PR is closed
-        if: github.event.pull_request.merged == false
+      - name: Only Runs when PR is closed without merging
+        if: github.event.action == 'closed' && github.event.pull_request.merged == false
         run: |
           echo "The PR was closed without merging."

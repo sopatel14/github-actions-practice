@@ -1,0 +1,41 @@
+# Create a workflow that runs during different stages of a Pull Request lifecycle.
+
+
+name: PR lifecycle
+
+on:
+  pull_request:
+    types:
+      opened:
+      synchronize:
+      reopened: 
+      closed:
+
+jobs:
+  pr-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Event type fired
+        run: echo "The event action is ${{ github.event.action }}"
+
+      - name: Print the title of the PR
+        run: echo "The Pull Request title is ${{ github.event.pull_request.title }}"
+
+      - name: Print the PR author
+        run: echo "The author of this PR is ${{ github.event.pull_request.user.login }}"
+
+      - name: Print Source and Target Branches
+        run: |
+          echo "Source Branch: ${{ github.head_ref }}"
+          echo "Target Branch: ${{ github.base_ref }}"
+
+      - name: Only Runs when PR is merged
+        if: github.event.pull_request.merged == true
+        run: |
+          echo "The PR was successfully merged"
+
+      - name: Only Runs when PR is closed
+        if: github.event.pull_request.merged == false
+        run: |
+          echo "The PR was closed without merging."

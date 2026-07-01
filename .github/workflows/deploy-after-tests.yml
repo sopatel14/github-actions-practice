@@ -1,0 +1,45 @@
+name: Deploy After Tests
+
+on:
+  workflow_run:
+    workflows: ["Run Tests"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Check if tests passed
+        run: |
+          echo "========================================"
+          echo "Checking test workflow conclusion..."
+          echo "========================================"
+          
+          CONCLUSION="${{ github.event.workflow_run.conclusion }}"
+          echo "Test workflow conclusion: $CONCLUSION"
+          
+          if [ "$CONCLUSION" == "success" ]; then
+            echo "Tests passed. Proceeding with deployment..."
+          else
+            echo "Tests failed. Stopping deployment..."
+            echo "::error::Deployment cancelled due to test failures"
+            exit 1
+          fi
+      
+      - name: Deploy application
+        run: |
+          echo "========================================"
+          echo "Starting deployment..."
+          echo "========================================"
+          
+          echo "Step 1: Building application..."
+          echo "Step 2: Deploying to server..."
+          echo "Step 3: Verifying deployment..."
+          
+          echo "Deployment complete!"
+          echo "========================================"

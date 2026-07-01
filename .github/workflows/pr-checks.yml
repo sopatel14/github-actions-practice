@@ -1,0 +1,61 @@
+# This is for Day 47 
+
+name: PR Validation Workflow
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  file-size-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v5
+
+      - name: Fails if File larger than 1 MB
+        run: |
+          if find . -type f -size +1M | grep -q .; then
+            echo "Large files found:"
+            find . -type f -size +1M -exec ls -lh {} \;
+            echo "::error::Files larger than 1MB found in PR"
+            exit 1
+          else
+            echo "All files are under 1MB"
+          fi
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch name pattern
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          echo "Checking branch: $BRANCH"
+          
+          if [[ "$BRANCH" =~ ^(feature|fix|docs)/ ]]; then
+            echo "Branch name '$BRANCH' follows the naming convention"
+          else
+            echo "Branch name '$BRANCH' is invalid"
+            echo "Branch names must start with: feature/, fix/, or docs/"
+            echo "::error::Invalid branch name format"
+            exit 1
+          fi
+
+  pr-body-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Read PR Body Check
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          echo "Checking PR description..."
+          
+          if [ -z "$PR_BODY" ]; then
+            echo "PR description is empty"
+            echo "::warning::Please add a description to your PR"
+          else
+            echo "PR description is not empty"
+            echo "Description preview: ${PR_BODY:0:100}..."
+          fi

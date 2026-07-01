@@ -1,0 +1,32 @@
+name: Smart Triggers - Paths
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+    paths:
+      - '*.py'
+      - 'app.py'
+
+jobs:
+  smart-job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Show trigger information
+        run: |
+          echo "========================================"
+          echo "Workflow triggered by paths filter"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit message: ${{ github.event.head_commit.message }}"
+          echo "========================================"
+      
+      - name: Show changed files
+        run: |
+          echo "Files changed in this push:"
+          git diff --name-only HEAD~1
+          echo "========================================"

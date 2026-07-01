@@ -1,15 +1,10 @@
-name: Smart Triggers
+name: Smart Triggers - Ignore
 
 on:
   push:
     branches:
       - main
       - release/*
-    paths:
-      - 'src/**'
-      - 'app/**'
-      - '*.py'           # Any Python file at root
-      - 'app.py'         # Specifically app.py
     paths-ignore:
       - '*.md'
       - 'docs/**'
@@ -25,9 +20,8 @@ jobs:
       - name: Show trigger information
         run: |
           echo "========================================"
-          echo "Workflow triggered by push event"
+          echo "Workflow triggered by paths-ignore filter"
           echo "Branch: ${{ github.ref_name }}"
-          echo "Commit: ${{ github.sha }}"
           echo "Commit message: ${{ github.event.head_commit.message }}"
           echo "========================================"
       

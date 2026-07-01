@@ -1,0 +1,59 @@
+name: External Trigger
+
+on:
+  repository_dispatch:
+    types:
+      - deploy-request
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Print event information
+        run: |
+          echo "========================================"
+          echo "Repository Dispatch Triggered"
+          echo "========================================"
+          echo "Event type: ${{ github.event.action }}"
+          echo "Client payload: ${{ github.event.client_payload }}"
+          echo "========================================"
+      
+      - name: Extract environment from payload
+        run: |
+          echo "========================================"
+          echo "Extracting deployment information..."
+          echo "========================================"
+          
+          ENVIRONMENT="${{ github.event.client_payload.environment }}"
+          echo "Environment: $ENVIRONMENT"
+          
+          if [ -n "$ENVIRONMENT" ]; then
+            echo "Deploying to: $ENVIRONMENT"
+            
+            if [ "$ENVIRONMENT" == "production" ]; then
+              echo "Production deployment - proceeding with caution"
+            elif [ "$ENVIRONMENT" == "staging" ]; then
+              echo "Staging deployment - safe to proceed"
+            else
+              echo "Unknown environment: $ENVIRONMENT"
+            fi
+          else
+            echo "No environment specified in payload"
+          fi
+          echo "========================================"
+      
+      - name: Simulate deployment
+        run: |
+          echo "========================================"
+          echo "Starting deployment process..."
+          echo "========================================"
+          echo "Step 1: Building application"
+          echo "Step 2: Running pre-deployment checks"
+          echo "Step 3: Deploying application"
+          echo "Step 4: Post-deployment verification"
+          echo "Deployment completed successfully"
+          echo "========================================"

@@ -19,15 +19,16 @@ jobs:
           if find . -type f -size +1M | grep -q .; then
             echo "Large files found:"
             find . -type f -size +1M -exec ls -lh {} \;
+            echo "::error::Files larger than 1MB found in PR"
             exit 1
           else
             echo "All files are under 1MB"
           fi
 
-    branch-name-check:
-      runs-on: ubuntu-latest
+  branch-name-check:
+    runs-on: ubuntu-latest
 
-      steps:
+    steps:
       - name: Validate branch name pattern
         run: |
           BRANCH="${{ github.head_ref }}"
@@ -42,21 +43,19 @@ jobs:
             exit 1
           fi
 
-
   pr-body-check:
     runs-on: ubuntu-latest
 
     steps:
       - name: Read PR Body Check
         run: |
-          PR_CHECK="${{ github.event.pull_request.body }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
           echo "Checking PR description..."
-      
+          
           if [ -z "$PR_BODY" ]; then
             echo "PR description is empty"
             echo "::warning::Please add a description to your PR"
           else
-             echo "PR description is not empty"
-             echo "Description preview: ${PR_BODY:0:100}..."  # Shows first 100 chars
+            echo "PR description is not empty"
+            echo "Description preview: ${PR_BODY:0:100}..."
           fi
-   

@@ -11,15 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Print schedule trigger
-        run: |
-          echo "Triggered by schedule: ${{ github.event.schedule }}"
-          if [ "${{ github.event.schedule }}" == "30 2 * * 1" ]; then
-            echo "This is the weekly Monday run"
-          elif [ "${{ github.event.schedule }}" == "0 */6 * * *" ]; then
-            echo "This is the 6-hourly run"
-          else
-            echo "This was triggered manually (workflow_dispatch)"
+      # - name: Print schedule trigger
+      #   run: |
+      #     echo "Triggered by schedule: ${{ github.event.schedule }}"
+      #     if [ "${{ github.event.schedule }}" == "30 2 * * 1" ]; then
+      #       echo "This is the weekly Monday run"
+      #     elif [ "${{ github.event.schedule }}" == "0 */6 * * *" ]; then
+      #       echo "This is the 6-hourly run"
+      #     else
+      #       echo "This was triggered manually (workflow_dispatch)"
           fi
           
       - name: Health check
